@@ -3,11 +3,11 @@ import { useState } from "react";
 import Add from "../../components/add/Add";
 import DataTable from "../../components/dataTable/DataTable";
 import { userRows } from "../../data";
-import { Rows } from "../../types/types";
+import { Row } from "../../types/types";
 import "./users.scss";
 
 const columns: GridColDef[] = [
-    { field: "id", headerName: "ID", width: 90 },
+    { field: "id", headerName: "ID", width: 80 },
     {
         field: "img",
         headerName: "Avatar",
@@ -59,7 +59,7 @@ const Users = () => {
 
     const [rows, setRows] = useState(userRows);
 
-    const createUser = (newUser: Rows) => {
+    const createUser = (newUser: Row) => {
         setRows([...rows, newUser]);
     };
 
@@ -70,7 +70,7 @@ const Users = () => {
                 <button onClick={() => setOpen(true)}>Add new user</button>
             </div>
             <DataTable columns={columns} rows={rows} slug="users" setRows={setRows} />
-            {open && <Add slug={"user"} columns={columns} setOpen={setOpen} createUser={createUser} />}
+            {open && <Add slug={"user"} columns={columns} setOpen={setOpen} create={createUser} />}
         </div>
     );
 };

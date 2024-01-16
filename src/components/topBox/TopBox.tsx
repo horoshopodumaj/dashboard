@@ -9,7 +9,6 @@ const TopBox = () => {
                 {topDealUsers.map((user) => (
                     <div className="listItem" key={user.id}>
                         <div className="user">
-                            <img src={user.img} alt="" />
                             <div className="userTexts">
                                 <span className="username">{user.username}</span>
                                 <span className="email">{user.email}</span>

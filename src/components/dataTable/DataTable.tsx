@@ -1,11 +1,11 @@
 import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
-import { Rows } from "../../types/types";
+import { ProductsRow, Row } from "../../types/types";
 import "./dataTable.scss";
 
 type Props = {
     columns: GridColDef[];
-    rows: Rows[];
+    rows: Row[] | ProductsRow[];
     slug: string;
     setRows: Function;
 };
@@ -36,13 +36,14 @@ const DataTable = ({ columns, rows, slug, setRows }: Props) => {
     return (
         <div className="dataTable">
             <DataGrid
+                sx={{ display: "grid", gridTemplateRows: " auto" }}
                 className="dataGrid"
                 rows={rows}
                 columns={[...columns, actionColumn]}
                 initialState={{
                     pagination: {
                         paginationModel: {
-                            pageSize: 5,
+                            pageSize: 10,
                         },
                     },
                 }}

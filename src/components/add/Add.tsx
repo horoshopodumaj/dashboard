@@ -6,10 +6,10 @@ type Props = {
     slug: string;
     columns: GridColDef[];
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-    createUser: Function;
+    create: Function;
 };
-const Add = ({ slug, setOpen, columns, createUser }: Props) => {
-    const userValues = columns
+const Add = ({ slug, setOpen, columns, create }: Props) => {
+    const values = columns
         .filter((item) => item.field !== "id" && item.field !== "img")
         .map((column) => ({ [`${column.field}`]: "" }))
         .reduce((result, currentObject) => {
@@ -19,17 +19,17 @@ const Add = ({ slug, setOpen, columns, createUser }: Props) => {
             return result;
         }, {});
 
-    const [newUser, setNewUser] = useState(userValues);
+    const [newItem, setNewItem] = useState(values);
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setOpen(false);
-        const newUsertoCreate = { ...newUser, id: Date.now() };
-        createUser(newUsertoCreate);
+        const newItemtoCreate = { ...newItem, id: Date.now() };
+        create(newItemtoCreate);
     };
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>, column: string) => {
-        setNewUser({ ...newUser, [column]: e.target.value });
+        setNewItem({ ...newItem, [column]: e.target.value });
     };
 
     return (
@@ -45,7 +45,7 @@ const Add = ({ slug, setOpen, columns, createUser }: Props) => {
                         .map((column) => (
                             <div className="item" key={column.field}>
                                 <label>{column.headerName}</label>
-                                <input type={column.type} placeholder={column.field} value={newUser[column.field]} onChange={(e) => onChange(e, column.field)} />
+                                <input type={column.type} placeholder={column.field} value={newItem[column.field]} onChange={(e) => onChange(e, column.field)} />
                             </div>
                         ))}
                     <button>Send</button>
